@@ -1,5 +1,7 @@
 # api.iyum.in
 
+### 数据库操作
+
 初始化数据库
 
 `python manage.py db init`
@@ -12,7 +14,7 @@
 
 `python manage.py db upgrade`
 
-
+### 服务器操作
 
 启动服务
 
