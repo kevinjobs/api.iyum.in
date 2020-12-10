@@ -9,7 +9,7 @@ AUTHORIZATION_ERROR = 4201
 UNKNOWN_ERROR = 4301
 
 CODE_MSG_MAP = {
-    OK: 'ok',
+    OK: '请求成功',
     DB_ERROR: '数据库错误',
     PARAM_ERROR: '请求参数错误',
     AUTHORIZATION_ERROR: '认证授权错误',
