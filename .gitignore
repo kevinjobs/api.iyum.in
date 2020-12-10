@@ -12,6 +12,9 @@ venv/
 # sqlite
 *.db
 
+# vscode
+.vscode/
+
 # Distribution / packaging
 .Python
 build/
