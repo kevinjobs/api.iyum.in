@@ -23,6 +23,6 @@ def create_app(config):
     app.config.from_object(config)
     app.after_request(_access_control)
     db.init_app(app)
-    from routes import v1
-    app.register_blueprint(v1, url_prefix='/api/v1')
+    from routes import v2
+    app.register_blueprint(v2, url_prefix='/api/v1')
     return app

@@ -3,9 +3,9 @@ from flask_restful import Api
 
 from resources import articles, images, login, register, users, upload
 
-v1 = Blueprint('v1', __name__)
+v2 = Blueprint('v2', __name__)
 
-api = Api(v1)
+api = Api(v2)
 
 api.add_resource(articles.ArticleListResource, '/articles')
 api.add_resource(articles.ArticleResource, '/article/<string:id>')
