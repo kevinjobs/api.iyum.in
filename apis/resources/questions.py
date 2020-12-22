@@ -8,15 +8,19 @@ class QuestionListResource(Resource):
         self.parser = reqparse.RequestParser()
         self.parser.add_argument('id', type=int)
         self.parser.add_argument('subject_id', type=int)
-        self.parser.add_argument('subject_name', type=str)
+        #self.parser.add_argument('subject_name', type=str)
         self.parser.add_argument('chapter_id', type=int)
-        self.parser.add_argument('chapter_name', type=str)
+        #self.parser.add_argument('chapter_name', type=str)
         self.parser.add_argument('section_id', type=int)
-        self.parser.add_argument('section_name', type=str)
+        #self.parser.add_argument('section_name', type=str)
         self.args = self.parser.parse_args()
 
     def get(self):
+        print(self.args)
+
         query = {'$and': []}
+        if self.args.id:
+            query['$and'].append({'id': self.args.id})
         if self.args.subject_id:
             query['$and'].append({'subject_id': self.args.subject_id})
         if self.args.chapter_id:
@@ -28,7 +32,7 @@ class QuestionListResource(Resource):
         questions = transfer_objectid(results)
 
         data = {
-            'count': len(questions),
+            'count': 3, #len(questions),
             'totals': client.bodu.questions.count(),
             'questions': questions
         }
@@ -38,7 +42,7 @@ class QuestionListResource(Resource):
 
 class QuestionResource(Resource):
     def __init__(self):
-		pass
+        pass
 
     @staticmethod
     def get(id):

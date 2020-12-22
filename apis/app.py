@@ -34,5 +34,5 @@ def create_app():
     app.after_request(_access_control)
     db.init_app(app)
     from routes import v2
-    app.register_blueprint(v2, url_prefix='/api/v1')
+    app.register_blueprint(v2, url_prefix='/api/v2')
     return app

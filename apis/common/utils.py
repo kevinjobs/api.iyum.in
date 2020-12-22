@@ -14,6 +14,18 @@ def pretty_result(code, msg=None, data=None):
     })
 
 
+def transfer_objectid(mongo):
+    if isinstance(mongo, list):
+        arr = []
+        for m in mongo:
+            m['_id'] = str(m['_id'])
+            arr.append(m)
+        return arr
+    elif isinstance(mongo, dict):
+        mongo['_id'] = str(mongo['_id'])
+        return mongo
+        
+
 def hash_md5(data):
     md5 = hashlib.md5()
     md5.update(data)
