@@ -2,12 +2,23 @@ import string
 from hashids import Hashids
 from flask import Flask
 from flask_cors import CORS
+from flask_pymongo import PyMongo
+
 from models import db
+from config import config
 
 app = Flask(__name__)
+app.config.from_object(config)
+
+# anti cors
 CORS(app)
 
+# hash id
 hash_ids = Hashids(salt='hvwptlmj129d5quf', min_length=8, alphabet=string.ascii_lowercase + string.digits)
+
+# mongo db config
+mongo = PyMongo(app)
+client = mongo.db.client
 
 def _access_control(response):
     """
@@ -19,8 +30,7 @@ def _access_control(response):
     response.headers['Access-Control-Max-Age'] = 86400
     return response
 
-def create_app(config):
-    app.config.from_object(config)
+def create_app():
     app.after_request(_access_control)
     db.init_app(app)
     from routes import v2
