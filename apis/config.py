@@ -3,6 +3,7 @@ import os
 MODE = 'dev'
 
 
+
 class DevelopConfig(object):
 	HOST = '127.0.0.1'
 	PORT = '5000'
@@ -12,6 +13,14 @@ class DevelopConfig(object):
 	DEBUG = True
 	SECRET = 'impossible'
 	TEMPLATE_FOLDER = 'templates'
+	MONGO_URI = '''
+		mongodb://kevinjobs:SsAm7PHaIVMdq6EQ@
+		cluster0-shard-00-00.6os1r.mongodb.net:27017,
+		cluster0-shard-00-01.6os1r.mongodb.net:27017,
+		cluster0-shard-00-02.6os1r.mongodb.net:27017/
+		bodu?ssl=true&replicaSet=atlas-fd1sjd-shard-0&
+		authSource=admin&retryWrites=true&w=majority
+	'''
 
 
 if MODE == 'dev':
