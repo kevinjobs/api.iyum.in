@@ -49,10 +49,19 @@ class ImageListResource(Resource, Auth):
 	def get(self):
 		self.parser.add_argument('page', type=int, location='args', default=1)
 		self.parser.add_argument('limit', type=int, location='args', default=9)
+		self.parser.add_argument('author', type=str, location='args')
+		self.parser.add_argument('category', type=str, location='args')
 		args = self.parser.parse_args()
 
+		filter_rules = []
+
+		if args.author:
+			filter_rules.append(ImageModel.author == args.author)
+		if args.category:
+			filter_rules.append(ImageModel.category == args.category)
+
 		try:
-			images = ImageModel.query.paginate(
+			images = ImageModel.query.filter(*filter_rules).paginate(
 				args.page,
 				args.limit,
 				error_out=False
