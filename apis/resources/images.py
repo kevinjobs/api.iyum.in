@@ -13,7 +13,7 @@ class ImageListResource(Resource, Auth):
 	def __init__(self):
 		self.parser = reqparse.RequestParser()
 
-	# @auth.login_required
+	@auth.login_required
 	def post(self):
 		self.parser.add_argument('create_time', type=str)
 		# self.parser.add_argument('update_time', type=str)
@@ -59,7 +59,6 @@ class ImageListResource(Resource, Auth):
 			#
 			tags = args.tags,
 			category = args.category,
-			# device = args.device,
 			#
 			manufacturer = args.manufacturer,
 			system_version = args.system_version,
@@ -92,16 +91,49 @@ class ImageListResource(Resource, Auth):
 	def get(self):
 		self.parser.add_argument('page', type=int, location='args', default=1)
 		self.parser.add_argument('limit', type=int, location='args', default=9)
-		self.parser.add_argument('author', type=str, location='args')
-		self.parser.add_argument('category', type=str, location='args')
+
+		# self.parser.add_argument('create_time', type=str)
+		# self.parser.add_argument('update_time', type=str)
+
+		# self.parser.add_argument('title', type=str)
+		# self.parser.add_argument('source', type=str)
+		# self.parser.add_argument('author', type=str)
+		# self.parser.add_argument('desc', type=str)
+
+		# self.parser.add_argument('tags', type=str)
+		self.parser.add_argument('category', type=str)
+
+		# self.parser.add_argument('manufacturer', type=str)
+		# self.parser.add_argument('system_version', type=str)
+		# self.parser.add_argument('cameral_model', type=str)
+		# self.parser.add_argument('cameral_lens', type=str)
+
+		# self.parser.add_argument('exposure_time', type=str)
+		# self.parser.add_argument('iso', type=int)
+
+		# self.parser.add_argument('width', type=int)
+		# self.parser.add_argument('length', type=int)
+
+		# self.parser.add_argument('latitude', type=float)
+		# self.parser.add_argument('latitude_ref', type=str)
+		# self.parser.add_argument('longitude', type=float)
+		# self.parser.add_argument('longitude_ref', type=str)
+		# self.parser.add_argument('altitude', type=float)
+		# self.parser.add_argument('altitude_ref', type=str)
+
+		# self.parser.add_argument('position', type=str)
 		args = self.parser.parse_args()
 
 		filter_rules = []
 
+		#if args.create_time:
+		#	filter_rules.append(ImageModel.create_time == args.create_time)
 		if args.author:
 			filter_rules.append(ImageModel.author == args.author)
 		if args.category:
 			filter_rules.append(ImageModel.category == args.category)
+		#if args.position:
+		#	filter_rules.append(ImageModel.position == args.position)
 
 		try:
 			images = ImageModel.query.filter(*filter_rules).paginate(
