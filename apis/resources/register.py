@@ -12,6 +12,14 @@ class RegisterResource(Resource):
 		self.parser = reqparse.RequestParser()
 
 	def post(self):
+		'''
+		username & password get from request parser
+		can be 
+		1. json
+		2. multipart/form-data
+		3. application/x-www.form-urlencoded
+		return: [dict] username & id & token
+		'''
 		self.parser.add_argument('username', type=str)
 		self.parser.add_argument('password', type=str)
 		args = self.parser.parse_args()
@@ -32,24 +40,5 @@ class RegisterResource(Resource):
 				'username': user.username,
 				'id': hash_ids.encode(user.id),
 				'token': token
-			}
-			return pretty_result(code.OK, data=data)
-	
-	@staticmethod
-	def get(id):
-		id = hash_ids.decode(id)
-		if not id: abort(404)
-
-		try:
-			user = UserModel.query.get(id[0])
-		except SQLAlchemyError as e:
-			current_app.logger.error(e)
-			db.session.rollback()
-			return pretty_result(code.DB_ERROR, '数据库错误!')
-		else:
-			data = {
-				'id': hash_ids.encode(user.id),
-				'username': user.username,
-				'avatar': user.avatar
 			}
 			return pretty_result(code.OK, data=data)

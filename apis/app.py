@@ -16,10 +16,6 @@ CORS(app)
 # hash id
 hash_ids = Hashids(salt='hvwptlmj129d5quf', min_length=8, alphabet=string.ascii_lowercase + string.digits)
 
-# mongo db config
-mongo = PyMongo(app)
-client = mongo.db.client
-
 def _access_control(response):
     """
     解决跨域请求

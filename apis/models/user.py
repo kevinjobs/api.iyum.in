@@ -12,7 +12,7 @@ class UserModel(db.Model, BaseModel):
 
     def generate_auth_token(self, expiration = 3600):
         s = Serializer('secret', expires_in = expiration) # 用于混淆
-        return s.dumps({ 'id': self.id }) # 基于 id 来混淆
+        return s.dumps({ 'id': self.id }) # 通过 id 来混淆
 
     @staticmethod
     def verify_auth_token(token):

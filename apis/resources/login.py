@@ -14,6 +14,10 @@ class LoginResource(Resource, Auth):
 
 	@auth.login_required
 	def post(self):
+		''' test the login status from the flask global G
+		only by the BASIC AUTH way.
+		return: [dict] username & id & token.
+		'''
 		token = g.user.generate_auth_token().decode('utf-8')
 		data = {
 			'username': g.user.username,
@@ -21,22 +25,3 @@ class LoginResource(Resource, Auth):
 			'token': token
 		}
 		return pretty_result(code.OK, data=data)
-	
-	@staticmethod
-	def get(id):
-		id = hash_ids.decode(id)
-		if not id: abort(404)
-
-		try:
-			user = UserModel.query.get(id[0])
-		except SQLAlchemyError as e:
-			current_app.logger.error(e)
-			db.session.rollback()
-			return pretty_result(code.DB_ERROR, '数据库错误!')
-		else:
-			data = {
-				'id': hash_ids.encode(user.id),
-				'username': user.username,
-				'avatar': user.avatar
-			}
-			return pretty_result(code.OK, data=data)
