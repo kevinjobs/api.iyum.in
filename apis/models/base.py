@@ -5,13 +5,13 @@ from app import hash_ids
 class BaseModel(object):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     create_time = db.Column(
-        db.DATETIME(6),
-        default=datetime.datetime.now
+        db.String(20),
+        default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     )
     update_time = db.Column(
-        db.DATETIME(6),
-        default=datetime.datetime.now,
-        onupdate=datetime.datetime.now
+        db.String(20),
+        default=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
+        onupdate=datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     )
 
     def to_dict(self):

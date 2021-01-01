@@ -13,27 +13,70 @@ class ImageListResource(Resource, Auth):
 	def __init__(self):
 		self.parser = reqparse.RequestParser()
 
-	@auth.login_required
+	# @auth.login_required
 	def post(self):
+		self.parser.add_argument('create_time', type=str)
+		# self.parser.add_argument('update_time', type=str)
+
 		self.parser.add_argument('title', type=str)
 		self.parser.add_argument('source', type=str)
 		self.parser.add_argument('author', type=str)
 		self.parser.add_argument('desc', type=str)
+
 		self.parser.add_argument('tags', type=str)
 		self.parser.add_argument('category', type=str)
-		self.parser.add_argument('location', type=str)
-		self.parser.add_argument('device', type=str)
+
+		self.parser.add_argument('manufacturer', type=str)
+		self.parser.add_argument('system_version', type=str)
+		self.parser.add_argument('cameral_model', type=str)
+		self.parser.add_argument('cameral_lens', type=str)
+
+		self.parser.add_argument('exposure_time', type=str)
+		self.parser.add_argument('iso', type=int)
+
+		self.parser.add_argument('width', type=int)
+		self.parser.add_argument('length', type=int)
+
+		self.parser.add_argument('latitude', type=float)
+		self.parser.add_argument('latitude_ref', type=str)
+		self.parser.add_argument('longitude', type=float)
+		self.parser.add_argument('longitude_ref', type=str)
+		self.parser.add_argument('altitude', type=float)
+		self.parser.add_argument('altitude_ref', type=str)
+
+		self.parser.add_argument('position', type=str)
+		
 		args = self.parser.parse_args()
 
 		image = ImageModel(
+			create_time = args.create_time,
+			# update_time = args.update_time,
+			# 
 			title = args.title,
 			author = args.author,
 			source = args.source,
 			desc = args.desc,
+			#
 			tags = args.tags,
 			category = args.category,
-			device = args.device,
-			location = args.location
+			# device = args.device,
+			#
+			manufacturer = args.manufacturer,
+			system_version = args.system_version,
+			cameral_model = args.cameral_model,
+			cameral_lens = args.cameral_lens,
+			#
+			exposure_time = args.exposure_time,
+			iso = args.iso,
+			#
+			latitude = args.latitude,
+			latitude_ref = args.latitude_ref,
+			longitude = args.longitude,
+			longitude_ref = args.longitude_ref,
+			altitude = args.altitude,
+			altitude_ref = args.altitude_ref,
+			#
+			position = args.position
 		)
 
 		try:
