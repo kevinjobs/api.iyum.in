@@ -1,7 +1,7 @@
 from flask import Blueprint
 from flask_restful import Api
 
-from resources import articles, images, login, register, users
+from resources import articles, images, login, register, users, questions
 
 v2 = Blueprint('v2', __name__)
 
@@ -15,3 +15,5 @@ api.add_resource(images.ImageResource, '/image/<string:id>')
 api.add_resource(login.LoginResource, '/login')
 api.add_resource(register.RegisterResource, '/register')
 api.add_resource(users.UserResource, '/user/<string:id>')
+
+api.add_resource(questions.QuestionListResource, '/questions')
