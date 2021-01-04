@@ -97,7 +97,7 @@ class ImageListResource(Resource, Auth):
 
 		# self.parser.add_argument('title', type=str)
 		# self.parser.add_argument('source', type=str)
-		# self.parser.add_argument('author', type=str)
+		self.parser.add_argument('author', type=str)
 		# self.parser.add_argument('desc', type=str)
 
 		# self.parser.add_argument('tags', type=str)
