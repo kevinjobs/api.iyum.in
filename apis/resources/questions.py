@@ -13,7 +13,7 @@ class QuestionListResource(Resource, Auth):
     def __init__(self):
         self.parser = reqparse.RequestParser()
 
-    # @auth.login_required
+    @auth.login_required
     def post(self):
         self.parser.add_argument('ques_id', type=int)
         self.parser.add_argument('ques_type', type=int)
