@@ -2,7 +2,7 @@ import string
 from hashids import Hashids
 from flask import Flask
 from flask_cors import CORS
-from flask_pymongo import PyMongo
+# from flask_pymongo import PyMongo
 
 from models import db
 from config import config
