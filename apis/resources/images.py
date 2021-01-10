@@ -13,7 +13,7 @@ class ImageListResource(Resource, Auth):
 	def __init__(self):
 		self.parser = reqparse.RequestParser()
 
-	@auth.login_required
+	# @auth.login_required
 	def post(self):
 		self.parser.add_argument('create_time', type=str)
 		# self.parser.add_argument('update_time', type=str)
@@ -64,6 +64,9 @@ class ImageListResource(Resource, Auth):
 			system_version = args.system_version,
 			cameral_model = args.cameral_model,
 			cameral_lens = args.cameral_lens,
+			#
+			width = args.width,
+			length = args.length,
 			#
 			exposure_time = args.exposure_time,
 			iso = args.iso,
