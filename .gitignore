@@ -13,7 +13,6 @@ venv/
 migrations/
 
 # sqlite
-*.db
 
 # vscode
 .vscode/
