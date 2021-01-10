@@ -28,11 +28,14 @@ class RegisterResource(Resource):
 
 		try:
 			invitation = InvitationModel.query.filter_by(code=args.invitation).first()
-			if not invitation.useable:
-				return pretty_result(code.AUTHORIZATION_ERROR, '邀请码已经使用或不存在')
-			# 邀请码只能使用一次; python 中 1 为 true
-			invitation.useable = 0
-			db.session.add(invitation)
+			if invitation:
+				if not invitation.useable:
+					return pretty_result(code.AUTHORIZATION_ERROR, '邀请码已经使用')
+				# 邀请码只能使用一次; python 中 1 为 true
+				invitation.useable = 0
+				db.session.add(invitation)
+			else:
+				return pretty_result(code.AUTHORIZATION_ERROR, '邀请码不存在')
 		except SQLAlchemyError as e:
 			current_app.logger.error(e)
 			db.session.rollback()
