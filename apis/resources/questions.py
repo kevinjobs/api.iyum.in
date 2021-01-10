@@ -13,8 +13,9 @@ class QuestionListResource(Resource, Auth):
     def __init__(self):
         self.parser = reqparse.RequestParser()
 
-    @auth.login_required
-    def post(self):
+        self.parser.add_argument('page', type=int, default=1, required=True)
+        self.parser.add_argument('limit', type=int, default=9, required=True)
+
         self.parser.add_argument('ques_id', type=int)
         self.parser.add_argument('ques_type', type=int)
         self.parser.add_argument('ques_stem', type=str)
@@ -35,6 +36,8 @@ class QuestionListResource(Resource, Auth):
         self.parser.add_argument('starred', type=int)
         self.parser.add_argument('remark', type=str)
 
+    @auth.login_required
+    def post(self):
         args = self.parser.parse_args()
 
         question = QuestionModel(
@@ -71,12 +74,6 @@ class QuestionListResource(Resource, Auth):
             return pretty_result(code.OK)
 
     def get(self):
-        self.parser.add_argument('page', type=int, location='args', default=1)
-        self.parser.add_argument('limit', type=int, location='args', default=9)
-        self.parser.add_argument('subject_id', type=int, location='args')
-        self.parser.add_argument('chapter_id', type=int, location='args')
-        self.parser.add_argument('section_id', type=int, location='args')
-        self.parser.add_argument('ques_id', type=int, location='args')
         args = self.parser.parse_args()
 
         filter_rules = []
