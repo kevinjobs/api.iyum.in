@@ -10,17 +10,20 @@ from common import pretty_result, code
 
 	
 class ArticleListResource(Resource, Auth):
+	'''
+	article list
+	'''
 	def __init__(self):
 		self.parser = reqparse.RequestParser()
-
-	@auth.login_required
-	def post(self):
 		self.parser.add_argument('cover', type=str)
 		self.parser.add_argument('title', type=str)
 		self.parser.add_argument('author', type=str)
 		self.parser.add_argument('content', type=str)
 		self.parser.add_argument('tags', type=str)
 		self.parser.add_argument('category', type=str)
+
+	@auth.login_required
+	def post(self):
 		args = self.parser.parse_args()
 
 		article = ArticleModel(
@@ -71,6 +74,9 @@ class ArticleListResource(Resource, Auth):
 
 
 class ArticleResource(Resource):
+	'''
+	article by id
+	'''
 	def __init__(self):
 		self.parser = reqparse.RequestParser()
 

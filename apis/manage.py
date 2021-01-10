@@ -13,7 +13,7 @@ manager.add_command('db', MigrateCommand)
 
 @manager.command
 def debug():
-	app.run(debug=True)
+	app.run(debug=True, host='localhost', port='15000')
 
 
 @manager.command
