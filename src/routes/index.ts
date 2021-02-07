@@ -1,15 +1,25 @@
-import Router from '@koa/router';
-import koaBody from 'koa-body';
-import LotteryController from '../controllers/lottery.ctrl';
-import ArticleController from '../controllers/article.ctrl';
+import * as express from 'express';
+import { Router } from 'express-serve-static-core';
+import ArticleResource from '@/controller/article';
+import { getImageList, getImage } from '@/controller/image';
 
-const router = new Router();
+const router: Router = express.Router();
 
-router.get('/lottery', LotteryController.get)
+const article = new ArticleResource();
 
-      .get('/article', ArticleController.getArticleList) // /article?type=[single | list]
-      .post('/article', koaBody(), ArticleController.postArticle)
-      .patch('/article')
-      .delete('/article');
+// articles list
+router.get('/articles', article.getList);
+// article
+router.get('/article', article.getById);
+router.post('/article', article.post);
+router.delete('/article', article.deleteById);
+router.patch('/article', article.patchById);
+
+// images list
+router.get('/images', getImageList);
+router.post('/images');
+// imges
+router.get('/image', getImage);
+router.put('/image');
 
 export default router;

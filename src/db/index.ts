@@ -2,30 +2,17 @@
  * @author: kevinjobs
  * @version: 0.0.1
  * @homepage: https://mint-forge.com
- * @date: 2021-01-31
  */
 
-import mongoose from 'mongoose';
-import { MONGDB } from '../config';
+// import * as fs from 'fs';
+import * as sqlite3 from 'sqlite3';
 
-(mongoose as any).Promise = global.Promise;
+const dbpath = 'myblogdata.db';
 
-export const db = mongoose;
+// const exists = fs.existsSync(dbpath);
 
-export const connect = () => {
-    mongoose.connect(MONGDB.uri, {
-        useNewUrlParser: true,
-        useFindAndModify: false,
-        useUnifiedTopology: true
-    });
+const sqlite = sqlite3.verbose();
 
-    mongoose.connection.on('error', err => {
-        console.log(err);
-    });
+const db = new sqlite.Database(dbpath);
 
-    mongoose.connection.once('open', () => {
-        console.log('Connect to db successfully!');
-    });
-
-    return mongoose;
-}
+export default db;

@@ -2,15 +2,14 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es5",
+    "target": "es6",
     "noImplicitAny": false,
     "noImplicitThis": false,
     "sourceMap": true,
     "rootDir": "./src",
     "outDir": "dist",
     "watch": true,
-    "esModuleInterop": true,
-    "baseUrl": "./",
+    "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
     }
